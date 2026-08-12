@@ -274,29 +274,43 @@ void SpinL2() {
 void SpinR() {
 
   float batt = INA.getBusVoltage();
-  int speedSpin;
-  int limitAngle;
-  // ปรับค่าตามแรงดันแบต
-  if (batt >= 8.35) {
-    // ประมาณ 8.4V
-    speedSpin = 105;
-    limitAngle = 60;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
-  }
-  else if (batt >= 8.15) {
-    // ประมาณ 8.2 - 8.3V
-    speedSpin = 110;
-    limitAngle = 64;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
-  }
-  else if (batt >= 7.95) {
-    // ประมาณ 8.0 - 8.1V
-    speedSpin = 130;
-    limitAngle = 50;
-  }
-  else {
-    // ต่ำกว่า 8.0V
-    speedSpin = 155;
-    limitAngle = 27;
-  }
+int speedLF;
+int speedLB;
+int speedRF;
+int speedRB;
+int limitAngle;
+  
+if (batt >= 8.35) { //เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
+  speedLF = 105;   // ซ้ายหน้า
+  speedLB = 115;   // ซ้ายหลัง
+  speedRF = 105;   // ขวาหน้า
+  speedRB = 115;   // ขวาหลัง
+  limitAngle = 60;
+}
+else if (batt >= 8.15) {
+  speedLF = 110;
+  speedLB = 120;
+  speedRF = 110;
+  speedRB = 120;
+
+  limitAngle = 64;
+}
+else if (batt >= 7.95) { //เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
+  speedLF = 130;
+  speedLB = 140;
+  speedRF = 130;
+  speedRB = 140;
+
+  limitAngle = 50;
+}
+else {
+  speedLF = 155;
+  speedLB = 165;
+  speedRF = 155;
+  speedRB = 165;
+
+  limitAngle = 27;
+}
   Stop(100);
   int DesiredAngle = (saveAngle >= 270) ? saveAngle - 270 : saveAngle + 90;
   saveAngle = DesiredAngle;
