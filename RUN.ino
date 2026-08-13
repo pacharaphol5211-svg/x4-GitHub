@@ -1,25 +1,16 @@
 void Can1() {
 
 
-Lift(3000);
-delay(1500);
-Lift(0);
-
-
-
-
-/*
-
 FF(170, 500);
 SpinL();
 FFe(150, 450);
 SpinL();
 BB(150,450);
-SpinR(1);
+SpinR();
 
 GetCan(3, 1500,'o');
 delay(500);
-BBe(40,235);
+
 SpinL(1);
 delay(500);
 StT('l');
@@ -41,7 +32,6 @@ delay(500);
 FF(150,750);
 
 
-*/
 
 
 
