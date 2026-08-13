@@ -12,38 +12,30 @@ void GetCan(int UltraMin, int _Lift_ , char arm) {
     HanLR('o', 'o');
     ArmLR('g','g');
   }
-
-  unsigned long time_set = millis();
-  while (millis() - time_set < 200) {
-    ResetAngle_Z();
-    MoveLift(_Lift_);
-  }
-
   while (1) {  // เมื่อระยะห่างจากกระป๋อง Speed เร็ว
     MoveLift(_Lift_);
-    if (Ultra() > 20) {
-      Forward(saveAngle, 50);
+    if (Ultra() > 15) {
+      ControlSpeedForward(saveAngle, 30);
     } else {
-      MotorShot(255);
-      delay(10);
       break;
     }
   }
 
   Lift(_Lift_);
-  MT(50, 50, 50);
+  Motor5('s');
 
   while (1) {
-    Motor5('s');
     if (Ultra() > UltraMin) {
-      Forward(saveAngle, 30);
+      ControlSpeedForward(saveAngle, 15);
     } else {
-      //FFe(30,70);  //เดินหน้าเพิ่มนิดหน่อย
-      
+      FFe(30, 10);
       MotorShot(255);
-      
-      delay(120);
+      HanLR('c', 'c');
+      delay(200);
 
+      //HanLR('h', 'h');  //เพิ่ม SetCan ก่อน break;
+      delay(200);
+      HanLR('c', 'c');
       break;
     }
   }
