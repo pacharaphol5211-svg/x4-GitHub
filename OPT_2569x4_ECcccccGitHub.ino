@@ -10,6 +10,7 @@ unsigned long timer_start, timer_end;
 float total_end;
 int timer_state = 0;
 
+
 int ColorHANL = 0, ColorHANR = 0, ColorLoadL = 0, ColorLoadR = 0;
 
 #define valueSen 550                                //ตั้งค่า Sensor ถ้าค่ามากกว่าหมายถึงเจอเส้นสีดำดูค่าที่จอ
