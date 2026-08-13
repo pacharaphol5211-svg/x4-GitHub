@@ -105,7 +105,7 @@ void Lift(int positions_) {  //หยุดรอลิฟถึงกำหน�
     // SetAngle50();
     if (state == 0) {
       if (GetEncodeLift() < (positions_ - 120)) {
-        Motor5(-255);
+        Motor5(255);
       } else {
         Motor5('s');
         break;
@@ -151,7 +151,7 @@ void PIDLIFT() {
     // ถ้าความเปลี่ยนแปลงน้อยกว่า 10 หน่วย และยังไม่ถึงเป้าหมาย
     if (diff < 10 && abs(setpoint - currentEncoder) > 50) {
       if (setpoint > currentEncoder) {
-        Motor5(-255);  // อัดไฟเต็มเพื่อส่งกำลังขึ้น
+        Motor5(255);  // อัดไฟเต็มเพื่อส่งกำลังขึ้น
         delay(50);    // ให้เวลามอเตอร์ทำงานสั้นๆ
       } else {
         Motor5(-SpeedDownLift);  // ส่งกำลังลง
@@ -211,7 +211,7 @@ void PIDLIFT() {
 // ฟังก์ชั่นเลื่อนมอเตอร์กลับสู่ตำแหน่ง 0
 void LiftToZero() {
   if (analog(6) < 1000) {
-    Motor5(200);
+    Motor5(-200); //+คือลง -คือขึ้น
   } else {
     Motor5(0);
     ResetEncoderLift();
