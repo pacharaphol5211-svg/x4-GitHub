@@ -1,21 +1,25 @@
 void Can1() {
 
 
+Lift(3000);
+delay(1500);
+Lift(0);
 
 
 
 
-
+/*
 
 FF(170, 500);
 SpinL();
-FFe(150, 500);
+FFe(150, 450);
 SpinL();
 BB(150,450);
 SpinR(1);
 
-//GetCan(3, 1300);
+GetCan(3, 1500,'o');
 delay(500);
+BBe(40,235);
 SpinL(1);
 delay(500);
 StT('l');
@@ -24,13 +28,20 @@ SpinL(1);
 BB(60,700);
 SpinR(1);
 delay(250);
+
+FFe(40,165);
+delay(500);
+StT('l');
+delay(500);
+DropCan(2,2900);
+DropCan2('l','r');
 SpinL();
 Lift(600);
 delay(500);
 FF(150,750);
 
 
-
+*/
 
 
 
