@@ -183,13 +183,13 @@ void SpinL() {
   // ปรับค่าตามแรงดันแบต
   if (batt >= 8.35) {
     // ประมาณ 8.4V
-    speedSpin = 105;
-    limitAngle = 23;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
+    speedSpin = 130;
+    limitAngle = 10;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
   }
   else if (batt >= 8.15) {
     // ประมาณ 8.2 - 8.3V
-    speedSpin = 110;
-    limitAngle = 19;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
+    speedSpin = 125;
+    limitAngle = 12;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
   }
   else if (batt >= 7.95) {
     // ประมาณ 8.0 - 8.1V
@@ -280,13 +280,13 @@ void SpinR() {
   // ปรับค่าตามแรงดันแบต
   if (batt >= 8.35) {
     // ประมาณ 8.4V
-    speedSpin = 105;
-    limitAngle = 60;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
+    speedSpin = 125;
+    limitAngle = 46;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
   }
   else if (batt >= 8.15) {
     // ประมาณ 8.2 - 8.3V
-    speedSpin = 110;
-    limitAngle = 64;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
+    speedSpin = 125;
+    limitAngle = 49;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
   }
   else if (batt >= 7.95) {
     // ประมาณ 8.0 - 8.1V
@@ -341,15 +341,15 @@ void SpinL(int slow) {
   int limitAngle;
   if (batt >= 8.35) {
     // 8.4V
-     speedSpinL = 90;
-     speedSpinR = 80;
-    limitAngle = 25; //เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
+     speedSpinL = 95;
+     speedSpinR = 85;
+    limitAngle = 3; //เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
   }
   else if (batt >= 8.15) {
     // 8.2 - 8.3V
-    speedSpinL = 85;
-    speedSpinR = 75;
-    limitAngle = 28; //เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
+    speedSpinL = 95;
+    speedSpinR = 85;
+    limitAngle = 3; //เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
   }
   else if (batt >= 7.95) {
     // 8.0 - 8.1V
@@ -405,13 +405,13 @@ void SpinR(int slow) {
     // 8.4V
     speedSpinL = 90;
     speedSpinR = 100;
-    limitAngle = 38;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า ค่าใช่องศาใส่PID
+    limitAngle = 18;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า ค่าใช่องศาใส่PID
   }
   else if (batt >= 8.15) {
     // 8.2 - 8.3V
-    speedSpinL = 90;
-    speedSpinR = 100;
-    limitAngle = 56;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
+    speedSpinL = 100;
+    speedSpinR = 110;
+    limitAngle = 8;//เลี้ยวเกินให้เพิ่มค่า เลี้ยวขาดให้ลดค่า
   }
   else if (batt >= 7.95) {
     // 8.0 - 8.1V
@@ -825,7 +825,7 @@ void FF(int speed, long ENCODE) {
 
   MotorShot(255);
   delay(250);
-  BBe(60,235);
+  BBe(60,135);
   MotorShot(255);
   delay(250);
 }
@@ -898,7 +898,7 @@ void BB(int speed, long ENCODE) {
 
   MotorShot(255);
   delay(50);
-  FFe(SpeedReturn, ReturnValue, 1);
+  FFe(40,75);
   MotorShot(255);
 }
 
@@ -1339,45 +1339,46 @@ void FFee(int speed, long ENCODE) {
   MotorStop();
 }
 void St(char spin) {
-  int checkSpeedF = 30;
-  int checkSpeedB = 15;
+  // === ตัวแปรสำหรับปรับความเร็วตอนเดินหน้าเช็คเส้น (จูนตรงนี้ได้เลย) ===
+  int checkSpeedF = 30; 
 
-  // ค่า index 0 = ขวา('r'), index 1 = ซ้าย('l')
-  int halfCellStep[2] = {20, 18};   // ← ใส่ค่าจริงจาก calibrate แต่ละฝั่ง
+  if (spin == 'r') {  // ==================== เลี้ยวขวา ====================
+    delay(50);
+    SpinR();
+     delay(50);
 
-  int side = (spin == 'r') ? 0 : 1;
-  int senIdx = (spin == 'r') ? 0 : 2;
+    // --- [รอบที่ 1] เดินหน้าเช็คเส้นครั้งแรก ---
+    while (analog(0) < valueSen) {
+      Forward(saveAngle, checkSpeedF);
+    }
+    MotorShot(255); 
+    // --- [ถอยกลับจุดเริ่ม] เปลี่ยนมาใช้ BBe ดื้อๆ ตามที่ขอครับ ---
+    BBe(30,135);  // หลุดเช็คครั้งที่ 2 เสร็จ สั่งถอยยาวกลับมาจุดเดิมทันที (ปรับเลข 165 เพิ่ม/ลดได้ตามต้องการ)
+    
+       delay(50);
+    SpinL(); // เลี้ยวคืน
+       delay(50);
 
-  delay(50);
-  if (spin == 'r') SpinR(); else SpinL();
-  delay(50);
+  } else {  // ==================== เลี้ยวซ้าย ====================
+     delay(50);
+    SpinL();
+      delay(50);
 
-  // ขาไป: เดินหน้าช้าลงเมื่อใกล้เส้น (กันเหวี่ยง overshoot)
-  while (analog(senIdx) < valueSen - 10) {
-    Forward(saveAngle, checkSpeedF);
+    // --- [รอบที่ 1] เดินหน้าเช็คเส้นครั้งแรก ---
+    while (analog(2) < valueSen) {
+      Forward(saveAngle, checkSpeedF);
+    }
+    MotorShot(255);   
+
+    // --- [ถอยกลับจุดเริ่ม] เปลี่ยนมาใช้ BBe ดื้อๆ ตามที่ขอครับ ---
+    BBe(30,165);  // หลุดเช็คครั้งที่ 2 เสร็จ สั่งถอยยาวกลับมาจุดเดิมทันที (ปรับเลข 165 เพิ่ม/ลดได้ตามต้องการ)
+    
+    MotorShot(255);   delay(50);
+    SpinR(); // เลี้ยวคืน
+    MotorShot(255);   delay(50);
   }
-  while (analog(senIdx) < valueSen) {
-    Forward(saveAngle, checkSpeedF / 2);
-  }
-  MotorShot(255);
-  delay(100);
-
-  // ขากลับ: ถอยช้าๆ จนกว่า sensor หลุดจากเส้นดำ
-  while (analog(senIdx) >= valueSen) {
-    Backward(saveAngle, checkSpeedB);
-  }
-  MotorShot(255);
-  delay(100);
-
-  // ถอยต่อด้วย BBe โดยใช้ tick ที่ calibrate มาแยกซ้าย-ขวา
-  BBe(165, halfCellStep[side]);
-  MotorShot(255);
-  delay(50);
-
-  if (spin == 'r') SpinL(); else SpinR();
-  MotorShot(255);
-  delay(50);
 }
+
 
 
 void StT(char spin) {
@@ -1421,5 +1422,4 @@ void StT(char spin) {
     MotorShot(255);   delay(50);
     SpinR(1); // เลี้ยวคืน
     MotorShot(255);   delay(50);
-  }
-}
+ 
