@@ -15,7 +15,7 @@ void GetCan(int UltraMin, int _Lift_ , char arm) {
   while (1) {  // เมื่อระยะห่างจากกระป๋อง Speed เร็ว
     MoveLift(_Lift_);
     if (Ultra() > 15) {
-      ControlSpeedForward(saveAngle, 30);
+      ControlSpeedForward(saveAngle, 35);
     } else {
       break;
     }
@@ -26,7 +26,7 @@ void GetCan(int UltraMin, int _Lift_ , char arm) {
 
   while (1) {
     if (Ultra() > UltraMin) {
-      ControlSpeedForward(saveAngle, 15);
+      ControlSpeedForward(saveAngle, 30);
     } else {
       FFe(30, 10);
       MotorShot(255);
@@ -501,7 +501,7 @@ void DropCan(int UltraMin, int _Lift_) {
   while (1) {
     MoveLift(_Lift_);
     if (Ultra() > 10) {
-      Forward(saveAngle, 30);
+      Forward(saveAngle, 50);
     } else {
       MotorShot(100);
       delay(5);
@@ -513,7 +513,7 @@ void DropCan(int UltraMin, int _Lift_) {
   while (1) {
     Motor5('s');
     if (Ultra() > UltraMin) {
-      Forward(saveAngle, 20);
+      Forward(saveAngle, 30);
     } else {
       //FFe(20,70);  //เดินหน้าเพิ่มนิดหน่อย
       
