@@ -41,7 +41,7 @@ void GetCan(int UltraMin, int _Lift_ , char arm) {
   }
 
 
-    //SelectGetCan();  // Auto คัดแยกกระป๋อง
+    SelectGetCan();  // Auto คัดแยกกระป๋อง
     delay(120);
     //FFe(10,80);
     //delay(500);
@@ -139,9 +139,11 @@ void GetCan2(int UltraMin, int _Lift_) {
   CheckColorL();
   CheckColorR();
   */
-  SetCan();
-  colorcan();
   MotorShot(255);
+  delay(120);
+  BBe(30, 550 ,0.5);
+  //SetCan();
+  //colorcan();
   delay(120);
 }
 
@@ -501,7 +503,7 @@ void DropCan(int UltraMin, int _Lift_) {
   while (1) {
     MoveLift(_Lift_);
     if (Ultra() > 10) {
-      Forward(saveAngle, 50);
+      Forward(saveAngle, 35);
     } else {
       MotorShot(100);
       delay(5);
@@ -522,7 +524,7 @@ void DropCan(int UltraMin, int _Lift_) {
       break;
     }
   }
-  //SelectDropCan();  Auto Drop
+  SelectDropCan();  
 
   
   MotorStop();
